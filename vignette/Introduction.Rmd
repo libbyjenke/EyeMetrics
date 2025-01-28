@@ -1,0 +1,81 @@
+---
+title: "Introduction to EyeMetrics"
+author: Libby Jenke
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Purpose
+
+This vignette gives an example of how to use the **EyeMetrics** R package. This package outputs the following eye tracking metrics: number of fixations, number of returns, total fixation time (ms), and total fixation percentage for each area of interest (AOI) for each respondent and for each trial in one's eye tracking data. It also yields the first fixated option for the respondent on each trial.
+
+# Installation and Setup
+
+To install the development version from GitHub, use the following command:
+  
+```{r install}
+devtools::install_github("libbyjenke/EyeMetrics")
+```
+
+Once installed, load the package using:
+
+```{r setup}
+#library(EyeMetrics)
+library(png)
+library(dplyr)
+```
+
+# Basic Usage Example
+
+This example comes from Jenke & Sullivan (forthcoming, *Political Analysis*). We will use the data, **sample_data**, which is in the package.
+
+The data contain eye tracking data for three participants on one stimulus screen. 
+
+```{r loaddata}
+data(sample_data, package="PlotEyeFix")
+fixation_data <- sample_data
+head(fixation_data)
+```
+
+The function has two parameters: fixation_data and trials. 
+
+**fixation_data**: This is the eyetracking data, which can be exported directly from the eye tracking software. In the data, each row should correspond to a unique fixation. The data must contain the following variables: subjects' identification numbers (`subject_id`), the trial number of each fixation (`trial_number`), AOI numbers of each fixation (`aoi_num`; this should be a column that indicates which AOI each fixation was in), and the duration of each fixation (`fix_duration`). 
+
+**trials**: Indicate which trials you want to calculate metrics for.
+
+```{r plot_fixations}
+#Set up data
+#First, because this data has only one trial, I create a column of 1s indicating trial number
+fixation_data$Trial.Number <- 1
+
+#Rename variables
+fixation_data <- fixation_data |>
+  rename(
+    subject_id = Respondent.Name,
+    aoi_num = AOI.Label,
+    fix_duration = Fixation.Duration,
+    trials = Trial.Number
+  )
+
+# Define trial of interest
+trial_number <- 1
+
+# Also, get rid of any NAs for aoi numbers (may or may not be in your data)
+fixation_data <- fixation_data[!is.na(fixation_data$aoi_num),]
+
+EyeMetrics(fixation_data, trials) 
+
+```
+
+You should see a tibble with the following columns: subject ID (`subject_id`), AOI number, number of fixations per AOI per subject (`num_fix`), total fixation time per AOI per subject (`tot_fix_time`), number of returns to each AOI per sujbect (`num_returns`), grand total of fixation time across all AOIS for each subject (`tot_fix_time_subject`), percentage of time spent on each AOI per subject (`percentage_aoi_fix_time`), and the first fixated option per subject (`first_aoi`).
+

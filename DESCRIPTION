@@ -1,0 +1,18 @@
+Package: EyeMetrics
+Title: Create relevant metrics for eye tracking data analyses
+Version: 0.0.0.9000
+Authors@R: 
+    person("Libby", "Jenke", , "ljenke@uh.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-2109-9391"))
+Description: This package creates metrics (e.g., total fixation time per AOI per subject) from eye tracking data that are useful for eye tracking analyses.
+License: `use_mit_license()`
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
+LazyData: true
