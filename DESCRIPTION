@@ -9,10 +9,15 @@ License: `use_mit_license()`
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Suggests: 
+Imports:
+    dplyr
+Suggests:
     knitr,
-    rmarkdown
-VignetteBuilder: knitr
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
 Depends: 
     R (>= 2.10)
-LazyData: true
+LazyData: true 
+Config/testthat/edition: 3
