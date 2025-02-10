@@ -115,3 +115,8 @@ of fixation time across all AOIS for each subject
 (`tot_fix_time_subject`), percentage of time spent on each AOI per
 subject (`percentage_aoi_fix_time`), and the first fixated option per
 subject (`first_aoi`).
+
+## Applications
+For a framework for applications and more on using eye tracking in the social sciences, see this paper:
+Libby Jenke and Nicolette Sullivan. "Attention and Political Choice: A Foundation for Eye Tracking in Political Science." Forthcoming at *Political Analysis*. [Working paper](https://osf.io/preprints/socarxiv/ns48h).
+
