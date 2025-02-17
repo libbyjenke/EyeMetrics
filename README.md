@@ -57,10 +57,9 @@ fixation was in), and the duration of each fixation (`fix_duration`).
 **trial_number**: Indicate which trials you want to calculate metrics
 for.
 
-First, set up the data. Because this data has only one trial, I create a
-column of 1s indicating trial number, rename the variables, define the
-trial of interest, get rid of any NAs for aoi numbers (this may or may
-not be the case in your data).
+First, set up the data. I rename the variables, define the trial of
+interest, and get rid of any NAs for aoi numbers (this may or may not be
+the case in your data).
 
 ``` r
 
