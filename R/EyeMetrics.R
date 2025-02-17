@@ -6,14 +6,14 @@
 #' It also yields the first fixated option for the respondent on each trial.
 #' @param fixation_data A data frame containing the eye tracking data. In the data, each row should correspond to a unique fixation.
 #' The data must contain the following variables: subjects' identification numbers (`subject_id`), the trial number of each fixation (`trial_number`), AOI numbers of each fixation (`aoi_num`; this should be a column that indicates which AOI each fixation was in), and the duration of each fixation (`fix_duration`).
-#' @param trials Indicates the trial(s) that you want output for.
+#' @param trial_number Indicates the trial(s) that you want output for.
 #' @return This function returns a tibble with the following columns: subject ID (`subject_id`), AOI number, number of fixations per AOI per subject (`num_fix`), total fixation time per AOI per subject (`tot_fix_time`), number of returns to each AOI per sujbect (`num_returns`), grand total of fixation time across all AOIS for each subject (`tot_fix_time_subject`), percentage of time spent on each AOI per subject (`percentage_aoi_fix_time`), and the first fixated option per subject (`first_aoi`).
 #'
 #' @importFrom dplyr |>
 #'
 #' @export
 #'
-EyeMetrics <- function(fixation_data, trials) {
+EyeMetrics <- function(fixation_data, trial_number) {
 
   # Filter data for the specified trials
   trial_data <- fixation_data |>

@@ -30,7 +30,7 @@ devtools::install_github("libbyjenke/EyeMetrics")
 Once installed, load the package using:
 
 ```{r setup}
-#library(EyeMetrics)
+library(EyeMetrics)
 library(png)
 library(dplyr)
 ```
@@ -42,7 +42,7 @@ This example comes from Jenke & Sullivan (forthcoming, *Political Analysis*). We
 The data contain eye tracking data for three participants on one stimulus screen. 
 
 ```{r loaddata}
-data(sample_data, package="PlotEyeFix")
+data(sample_data, package="EyeMetrics")
 fixation_data <- sample_data
 head(fixation_data)
 ```
@@ -51,20 +51,17 @@ The function has two parameters: fixation_data and trials.
 
 **fixation_data**: This is the eyetracking data, which can be exported directly from the eye tracking software. In the data, each row should correspond to a unique fixation. The data must contain the following variables: subjects' identification numbers (`subject_id`), the trial number of each fixation (`trial_number`), AOI numbers of each fixation (`aoi_num`; this should be a column that indicates which AOI each fixation was in), and the duration of each fixation (`fix_duration`). 
 
-**trials**: Indicate which trials you want to calculate metrics for.
+**trial_number**: Indicate which trials you want to calculate metrics for.
 
 ```{r plot_fixations}
 #Set up data
-#First, because this data has only one trial, I create a column of 1s indicating trial number
-fixation_data$Trial.Number <- 1
-
 #Rename variables
 fixation_data <- fixation_data |>
   rename(
     subject_id = Respondent.Name,
     aoi_num = AOI.Label,
     fix_duration = Fixation.Duration,
-    trials = Trial.Number
+    trials = trial_num
   )
 
 # Define trial of interest
@@ -73,7 +70,7 @@ trial_number <- 1
 # Also, get rid of any NAs for aoi numbers (may or may not be in your data)
 fixation_data <- fixation_data[!is.na(fixation_data$aoi_num),]
 
-EyeMetrics(fixation_data, trials) 
+EyeMetrics(fixation_data, trial_number) 
 
 ```
 

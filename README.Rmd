@@ -30,7 +30,7 @@ devtools::install_github("libbyjenke/EyeMetrics")
 
 Once installed, load the package using:
 
-```{r}
+```{r, output=FALSE, warning=FALSE, message=FALSE}
 library(EyeMetrics)
 library(png)
 library(dplyr)
@@ -51,7 +51,7 @@ The function has two parameters: fixation_data and trials.
 
 **fixation_data**: This is the eyetracking data, which can be exported directly from the eye tracking software. In the data, each row should correspond to a unique fixation. The data must contain the following variables: subjects' identification numbers (`subject_id`), the trial number of each fixation (`trial_number`), AOI numbers of each fixation (`aoi_num`; this should be a column that indicates which AOI each fixation was in), and the duration of each fixation (`fix_duration`). 
 
-**trials**: Indicate which trials you want to calculate metrics for.
+**trial_number**: Indicate which trials you want to calculate metrics for.
 
 First, set up the data. Because this data has only one trial, I create a column of 1s indicating trial number, rename the variables, define the trial of interest,  get rid of any NAs for aoi numbers (this may or may not be the case in your data). 
 
@@ -76,7 +76,7 @@ fixation_data <- fixation_data[!is.na(fixation_data$aoi_num),]
 
 
 #Now, call the package.
-EyeMetrics(fixation_data, trials) 
+EyeMetrics(fixation_data, trial_number) 
 ```
 
 ## Output
