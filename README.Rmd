@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 To install the development version from GitHub, use the following command:
   
 ```{r, output=FALSE, warning=FALSE, message=FALSE}
-devtools::install_local("/Users/libbyjenke/Dropbox/EyeMetrics")
+devtools::install_github("libbyjenke/EyeMetrics")
 ```
 
 Once installed, load the package using:
@@ -56,8 +56,6 @@ The function has two parameters: fixation_data and trials.
 First, set up the data. Because this data has only one trial, I create a column of 1s indicating trial number, rename the variables, define the trial of interest,  get rid of any NAs for aoi numbers (this may or may not be the case in your data). 
 
 ```{r plot_fixations}
-#Indicate trial number
-fixation_data$Trial.Number <- 1
 
 #Rename variables
 fixation_data <- fixation_data |>
@@ -65,10 +63,12 @@ fixation_data <- fixation_data |>
     subject_id = Respondent.Name,
     aoi_num = AOI.Label,
     fix_duration = Fixation.Duration,
-    trials = Trial.Number
+    trials = trial_num
   )
+#Make sure that trials is numeric
+fixation_data$trials <- as.numeric(fixation_data$trials)
 
-#Define trial number(s)
+#Define trial number(s) that you want to examine
 trial_number <- 1
 
 #Get rid of any 0s for AOI numbers
